@@ -46,6 +46,34 @@ typedef struct TipoCoda {
     head=NULL; 
     tail=NULL;
   }
+  //metodi alternativi alle funzioni//
+  void put(Tdato d){
+    Tnodo* n = new Tnodo(d, head);
+    head = n;
+  }
+  Tdato get(){
+    Tnodo* q = head;
+    if(q->next==NULL){
+      Tdato d = q->dato;
+      delete q;
+      head = NULL;
+      return d;
+    }
+    while(q->next->next!=NULL){
+      q = q->next;
+    }
+    Tdato d = q->next->dato;
+    delete q->next;
+    q->next=NULL;
+    return d;
+  }
+  void print ()const{
+    Tnodo* q = head;
+    while(q != NULL){
+      q->dato.stampa();
+      q = q->next;
+    }
+  } 
 } TipoCoda;
 
 
@@ -57,6 +85,11 @@ Tnodo* removeLast(Tnodo* s);
 Tnodo* insertOrder(Tnodo* s, Tdato d);
 Tnodo* removeSearch(Tnodo* s, Tdato d);
 void stampa(Tnodo* s);
+
+//coda head-tail
+void put(TipoCoda* p, Tdato d);
+Tdato read(TipoCoda* p);
+Tdato get(TipoCoda* p);
 
 
 int main() {
@@ -178,15 +211,42 @@ Tnodo* removeSearch(Tnodo* s, Tdato d){
   return NULL; 
 }
 
-void put(TipoCoda* p, Tdato d) {
+void put(TipoCoda* p, Tdato d){
   TipoCoda* n;
   n = p;
   Tnodo* q =new Tnodo(d,NULL);
   if (n->tail==NULL){ //lista vuota
     n->head = q; 
   } else { 
-      n->tail->next = q; 
-    }
-  n.tail = q;
+    n->tail->next =q; 
+  }
+  n->tail = q;
   p = n;
 }
+
+Tdato read(TipoCoda* p){
+  Tdato d;
+  if(p->head!=NULL){
+    d = p->head->dato;
+  }
+  return d;
+}
+
+Tdato get(TipoCoda* p){
+  Tdato d; //invoco costruttore default
+  if (p->head==NULL){//lista vuota 
+    return d; //devo comunque ritornare qualcosa
+  } 
+  d = p->head->dato;
+  //caso 1 solo nodo
+  if (p->head->next==NULL) {
+    p->head=NULL; 
+    p->tail=NULL;
+  } else {
+    Tnodo* s= p->head;
+    p->head = p->head->next;
+    delete s;
+  }
+  return d;
+}
+
