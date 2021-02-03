@@ -38,6 +38,16 @@ typedef struct Tnodo{
   }
 }Tnodo;
 
+
+Tnodo* insertFirst(Tnodo* s, Tdato d);
+Tnodo* removeFirst(Tnodo* s);
+void stampa(Tnodo* s);
+
+
+int main() {
+  Tnodo* listaLIFO = NULL;
+}
+
 Tnodo* insertFirst(Tnodo* s, Tdato d){
   Tnodo* q = new Tnodo();
   q->dato = d;
@@ -62,8 +72,4 @@ void stampa(Tnodo* s){
     p = p->next;
   }
   cout << endl;
-}
-
-int main() {
-  Tnodo* listaLIFO = NULL;
 }
