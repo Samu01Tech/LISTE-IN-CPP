@@ -15,7 +15,7 @@ typedef struct Tdato{
     //
   }
   void stampa() const{
-    cout << endl;
+    cout << numero;
   }
 } Tdato;
 
@@ -46,6 +46,10 @@ void stampa(Tnodo* s);
 
 int main() {
   Tnodo* listaLIFO = NULL;
+  listaLIFO = insertFirst(listaLIFO, Tdato());
+  stampa(listaLIFO);
+  listaLIFO = removeFirst(listaLIFO);
+  stampa(listaLIFO);
 }
 
 Tnodo* insertFirst(Tnodo* s, Tdato d){
